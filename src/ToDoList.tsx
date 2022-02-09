@@ -1,5 +1,6 @@
 import React, {ChangeEvent, useState, KeyboardEvent} from "react";
 import {FilterValueType} from "./App";
+import {AddItemForm} from "./AddItemForm";
 
 
 export type TaskType = {
@@ -53,7 +54,9 @@ export function ToDoList(props: PropsType) {
     const onCompletedClickHandler = () => {
         props.changeFilter('completed', props.id)
     }
-    const removeTodolist = () => {props.removeTodolist(props.id)}
+    const removeTodolist = () => {
+        props.removeTodolist(props.id)
+    }
 
     return (
         <div>
@@ -61,17 +64,17 @@ export function ToDoList(props: PropsType) {
                 {props.title}
                 <button onClick={removeTodolist}>x</button>
             </h3>
+            <AddItemForm addItem={addTask}/>
+            {/*<div>*/}
+            {/*    <input value={title}*/}
+            {/*           onChange={onChangeHandler}*/}
+            {/*           onKeyPress={onKeyPressHandler}*/}
+            {/*           className={error ? 'error' : ''}*/}
+            {/*    />*/}
 
-            <div>
-                <input value={title}
-                       onChange={onChangeHandler}
-                       onKeyPress={onKeyPressHandler}
-                       className={error ? 'error' : ''}
-                />
-
-                <button onClick={addTask}>+</button>
-                {error && <div className='error-message'>{error}</div>}
-            </div>
+            {/*    <button onClick={addTask}>+</button>*/}
+            {/*    {error && <div className='error-message'>{error}</div>}*/}
+            {/*</div>*/}
             <ul>
                 {
                     props.tasks.map(t => {
