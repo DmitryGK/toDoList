@@ -1,5 +1,5 @@
 import React, {ChangeEvent} from "react";
-import {FilterValueType} from "./App";
+import {FilterValueType} from "./AppWithReducers";
 import {AddItemForm} from "./AddItemForm";
 import {EditableSpan} from "./EditableSpan";
 import {Button, Checkbox, IconButton} from "@material-ui/core";
@@ -16,13 +16,13 @@ type PropsType = {
     id: string
     title: string
     tasks: Array<TaskType>
-    removeTask: (id: string, todolistID: string) => void
+    removeTask: (id: string, todoListID: string) => void
     changeFilter: (value: FilterValueType, todoListId: string) => void
-    addTask: (title: string, todolistId: string) => void
-    changeTaskStatus: (id: string, isDone: boolean, todolistId: string) => void
-    changeTaskTitle: (id: string, newTitle: string, todolistId: string) => void
+    addTask: (title: string, todoListId: string) => void
+    changeTaskStatus: (id: string, isDone: boolean, todoListId: string) => void
+    changeTaskTitle: (id: string, newTitle: string, todoListId: string) => void
     filter: string
-    removeTodolist: (id: string) => void
+    removeTodoList: (id: string) => void
     changeTodoListTitle: (id: string, newTitle: string) => void
 }
 
@@ -38,8 +38,8 @@ export function ToDoList(props: PropsType) {
     const onCompletedClickHandler = () => {
         props.changeFilter('completed', props.id)
     }
-    const removeTodolist = () => {
-        props.removeTodolist(props.id)
+    const removeTodoList = () => {
+        props.removeTodoList(props.id)
     }
     const changeTodoListTitle = (newTitle: string) => {
         props.changeTodoListTitle(newTitle, props.id)
@@ -53,7 +53,7 @@ export function ToDoList(props: PropsType) {
         <div>
             <h3>
                 <EditableSpan title={props.title} onChange={changeTodoListTitle}/>
-                <IconButton onClick={removeTodolist}>
+                <IconButton onClick={removeTodoList}>
                     <Delete/>
                 </IconButton>
             </h3>
