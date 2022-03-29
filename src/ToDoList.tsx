@@ -1,4 +1,4 @@
-import React, {ChangeEvent} from 'react';
+import React, {ChangeEvent, useCallback} from 'react';
 import {FilterValuesType} from './AppWithRedux';
 import {AddItemForm} from './AddItemForm';
 import {EditableSpan} from './EditableSpan';
@@ -25,10 +25,13 @@ type PropsType = {
     changeTaskTitle: (taskId: string, newTitle: string, todoListId: string) => void
 }
 
-export function TodoList(props: PropsType) {
-    const addTask = (title: string) => {
+export const TodoList = React.memo((props: PropsType) => {
+    console.log('todoList called');
+    
+
+    const addTask = useCallback((title: string) => {
         props.addTask(title, props.id);
-    }
+    }, [])
 
     const removeTodoList = () => {
         props.removeTodoList(props.id);
@@ -41,6 +44,14 @@ export function TodoList(props: PropsType) {
     const onActiveClickHandler = () => props.changeFilter("active", props.id);
     const onCompletedClickHandler = () => props.changeFilter("completed", props.id);
 
+    let tasksForTodoList = props.tasks
+    if (props.filter === 'active') {
+        tasksForTodoList = props.tasks.filter(t => t.isDone === false)
+    }
+    if (props.filter === 'completed') {
+        tasksForTodoList = props.tasks.filter(t => t.isDone === true)
+    }
+
     return <div>
         <h3> <EditableSpan value={props.title} onChange={changeTodoListTitle} />
             <IconButton onClick={removeTodoList}>
@@ -50,7 +61,7 @@ export function TodoList(props: PropsType) {
         <AddItemForm addItem={addTask}/>
         <div>
             {
-                props.tasks.map(t => {
+                tasksForTodoList.map(t => {
                     const onClickHandler = () => props.removeTask(t.id, props.id)
                     const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
                         let newIsDoneValue = e.currentTarget.checked;
@@ -92,6 +103,7 @@ export function TodoList(props: PropsType) {
             </Button>
         </div>
     </div>
-}
+})
 
 
+ 
