@@ -40,9 +40,9 @@ export const TodoList = React.memo((props: PropsType) => {
         props.changeTodoListTitle(props.id, title);
     }
 
-    const onAllClickHandler = () => props.changeFilter("all", props.id);
-    const onActiveClickHandler = () => props.changeFilter("active", props.id);
-    const onCompletedClickHandler = () => props.changeFilter("completed", props.id);
+    const onAllClickHandler = useCallback(() => props.changeFilter("all", props.id), [props.changeFilter, props.id]);
+    const onActiveClickHandler = useCallback(() => props.changeFilter("active", props.id), [props.changeFilter, props.id]);
+    const onCompletedClickHandler = useCallback(() => props.changeFilter("completed", props.id), [props.changeFilter, props.id]);
 
     let tasksForTodoList = props.tasks
     if (props.filter === 'active') {
@@ -51,6 +51,7 @@ export const TodoList = React.memo((props: PropsType) => {
     if (props.filter === 'completed') {
         tasksForTodoList = props.tasks.filter(t => t.isDone === true)
     }
+
 
     return <div>
         <h3> <EditableSpan value={props.title} onChange={changeTodoListTitle} />
