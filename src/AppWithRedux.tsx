@@ -35,36 +35,36 @@ function AppWithRedux() {
 
     const removeTask = useCallback((id: string, todoListId: string) => {
         dispatch(removeTaskAC(id, todoListId))
-    }, [])
+    }, [dispatch])
 
     const addTask = useCallback((title: string, todoListId: string) => {
         dispatch(addTaskAC(title, todoListId))
-    }, [])
+    }, [dispatch])
 
     const changeStatus = useCallback((id: string, isDone: boolean, todoListId: string) => {
         dispatch(changeTaskStatusAC(id, isDone, todoListId))
-    }, [])
+    }, [dispatch])
 
     const changeTaskTitle = useCallback((id: string, newTitle: string, todoListId: string) => {
         dispatch(changeTaskTitleAC(id, newTitle, todoListId))
-    }, [])
+    }, [dispatch])
 
 
     const changeFilter = useCallback((value: FilterValuesType, todoListId: string) => {
         dispatch(changeTodoListFilterAC(todoListId, value))
-    }, [])
+    }, [dispatch])
 
     const removeTodoList = useCallback((id: string) => {
         dispatch(removeTodoListAC(id))
-    }, [])
+    }, [dispatch])
 
     const changeTodoListTitle = useCallback((id: string, title: string) => {
         dispatch(changeTodoListTitleAC(id, title))
-    }, [])
+    }, [dispatch])
 
     const addTodoList = useCallback((title: string) => {
         dispatch(addTodoListAC(title))
-    }, [])
+    }, [dispatch])
 
     return (
         <div className="App">
